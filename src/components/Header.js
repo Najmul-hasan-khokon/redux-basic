@@ -4,7 +4,7 @@ export default function Header() {
   return (
     <div>
       <div>
-        <h2>User Name</h2>
+        <h2>Users Name</h2>
       </div>
     </div>
   );

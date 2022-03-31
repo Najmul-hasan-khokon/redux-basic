@@ -1,19 +1,36 @@
-
-ei project ta product er jonno korci but url kaj na koray jsonPlaceholder
-theke niyeci. name gula product eroi ache.
-
-
-redux state management korbo 
-react-redux diye redux er sathe react ke connent korbo.
+redux-thunk hocce middleware function. jokhon side effect niye kaj korbo tokhon eta use korbo.
+middleware ekta function return kore.
+jei function ta aeguement akare dispatch ney
+action creator er modde asynchronous operation korte middleware help kore.
+// store e middleware setup korte hobe.
 
 
-ekta application e ekta store thakbe.
-multiple reducer hote pare se khetre sob gula eksathe combine kore pelbo.
-type ba action gula alada function e likte pari.
 
-store create kore pura app e Provide kore dibo store ta.
-useDispatch() call kore dispatch namok variable e rekhe setar maddome action throw korbo.
-useSelector((state)=> state) call kore variable e rekhe seta modde data pabo.
+// for example
+ export const fetchUsers = () => {
+   return async (dispatch) => {
+     const response = await axios.get(
+       " https://jsonplaceholder.typicode.com/users"
+     );
+
+     dispatch({ type: ActionTypes.SET_USERS, payLoad: response.data });
+   };
+};
 
 
-redux jei component ei data nite caibo sekhanei useSelector() use kore data peye jabo.
+
+
+
+// store setup for middleware thunk
+     ApplyMiddleware(thunk)  // ei 2ta jinis use korte hobe.
+
+
+import { applyMiddleware, compose, createStore } from "redux";
+import thunk from "redux-thunk";
+import reducers from "./reducers";
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(reducers, composeEnhancers(applyMiddleware(thunk)));
+
+export default store;
